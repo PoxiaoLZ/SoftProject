@@ -13,8 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    aircondition.cpp \
+    roomstate.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    aircondition.h \
+    roomstate.h
 
 FORMS    += mainwindow.ui
