@@ -5,3 +5,7 @@ Aircondition::Aircondition()
 
 }
 
+Aircondition::init()
+{
+
+}
