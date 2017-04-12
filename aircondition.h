@@ -9,6 +9,7 @@
 #include <map>
 #include "roomstate.h"
 #include "mainwindow.h"
+#include "bill.h"
 using namespace std;
 
 class Aircondition
@@ -24,7 +25,8 @@ private:
     double SendFrequency;
     int TimeRadio;
     QTime CurrentTime;
-    map<int, RoomState> rooms;
+    //map<int, RoomState> rooms;
+    RoomState rooms[21];
 
 private:
     MainWindow *ui;
@@ -43,6 +45,8 @@ public:
 
     double CalculateCost(void);
 
+    void TempChange(int RoomNo);
+
     void TemperatureChange(int RoomNo, double Temperature); //change rooms' temperatures(server -> client)
 
     void WindChange(int RoomNo, int Level); //change rooms' wind level(server -> client)
@@ -53,14 +57,16 @@ public:
 
     void ConfirmConnected(int RoomNo); //确认该房间号是否可适用，并发送ack
 
+    void CancelConnected(int RoomNo);
+
     void RoomPowerOn(int RoomNo); //收到房间空调开机请求，设置server端房间状态，加入等待队列
 
     void RoomPowerOff(int RoomNo); //收到房间关机请求
 
 private:
-    void SendMessege(int RoomNo, char Type, bool IsConfirmed); //send I or H or P
+    void SendMessage(int RoomNo, char Type, bool IsConfirmed); //send I or H or P
 
-    void SendMessege(int RoomNo, char Type, double value); //send C or O
+    void SendMessage(int RoomNo, char Type, double value); //send C or O
 
 private slots:
     /*telecommunication functions*/
