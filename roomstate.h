@@ -4,14 +4,18 @@
 
 class RoomState
 {
-private:
+public:
     int RoomNo;
+    bool IsEmpty;
+    bool Power;
+
+    double RoomsTemperature;
     double TargetTemperature;
     double CurrentTemperature;
-    int WindRate;
     double TotalCost;
-    bool CurrentState;
 
+    int WindRate;
+    bool CurrentState;
 
 public:
     RoomState();
