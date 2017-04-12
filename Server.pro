@@ -17,11 +17,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     aircondition.cpp \
     roomstate.cpp \
-    bill.cpp
+    bill.cpp \
+    thread.cpp
 
 HEADERS  += mainwindow.h \
     aircondition.h \
     roomstate.h \
-    bill.h
+    bill.h \
+    thread.h
 
 FORMS    += mainwindow.ui

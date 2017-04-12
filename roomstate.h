@@ -5,7 +5,6 @@
 class RoomState
 {
 private:
-
     int RoomNo;
     bool IsEmpty;
     bool Power;

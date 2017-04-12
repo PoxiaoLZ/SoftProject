@@ -23,9 +23,10 @@ private:
     double HighCost;
     double MiddleCost;
     double SendFrequency;
-    int TimeRadio;
+    int TimeRadio; //1min = ？sec
     QTime CurrentTime;
-    //map<int, RoomState> rooms;
+
+//    map<int, RoomState> rooms;
     RoomState rooms[21];
 
 private:
@@ -45,7 +46,7 @@ public:
 
     double CalculateCost(void);
 
-    void TempChange(int RoomNo);
+    void TempChange(int RoomNo); //实时运行的温度变化
 
     void TemperatureChange(int RoomNo, double Temperature); //change rooms' temperatures(server -> client)
 
@@ -57,7 +58,7 @@ public:
 
     void ConfirmConnected(int RoomNo); //确认该房间号是否可适用，并发送ack
 
-    void CancelConnected(int RoomNo);
+    void CancelConnected(int RoomNo); //退房
 
     void RoomPowerOn(int RoomNo); //收到房间空调开机请求，设置server端房间状态，加入等待队列
 
@@ -69,7 +70,6 @@ private:
     void SendMessage(int RoomNo, char Type, double value); //send C or O
 
 private slots:
-    /*telecommunication functions*/
     void ReceiveMessage(); // receive all messeges and determine the type
 
     void NewListen(); //setup new connection

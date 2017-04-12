@@ -108,12 +108,4 @@ void Aircondition::ShowError(QAbstractSocket::SocketError)
 	
 }
 
-void Aircondition::PowerOn()
-{
-	
-}
 
-void Aircondition::PowerOff()
-{
-	
-}
