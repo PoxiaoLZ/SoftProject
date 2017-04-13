@@ -29,9 +29,11 @@ public:
 
     void SetPower(bool _Power);
 
-    void SetTargetTemperature(int _TargetTemperature);
+    void SetRoomsTemperature(double _RoomsTemperature);
 
-    void SetCurrentTemperature(int _CurrentTemperature);
+    void SetTargetTemperature(double _TargetTemperature);
+
+    void SetCurrentTemperature(double _CurrentTemperature);
 
     void SetWindRate(int _WindRate);
 
@@ -53,6 +55,8 @@ public:
     double GetTotalCost();
 
     bool GetCurrentState();
+
+    bool GetPower();
 };
 
 #endif // ROOMSTATE_H

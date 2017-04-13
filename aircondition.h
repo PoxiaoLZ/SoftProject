@@ -1,12 +1,12 @@
 #ifndef AIRCONDITION_H
 #define AIRCONDITION_H
-
+#define PORT 3500
 #include <QtNetwork>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QTime>
 #include <QString>
-#include <map>
+#include <qmap>
 #include "roomstate.h"
 #include "mainwindow.h"
 #include "bill.h"
@@ -25,6 +25,7 @@ private:
     double SendFrequency;
     int TimeRadio; //1min = ？sec
     QTime CurrentTime;
+    QTimer *Timer;
 
 //    map<int, RoomState> rooms;
     RoomState rooms[21];
@@ -33,12 +34,15 @@ private:
     MainWindow *ui;
 
 private:
-    map<int, QTcpSocket*> TcpSockets;
-
+    QMap<int, QTcpSocket*> SocketList;
+    QByteArray Message;
     QTcpServer *TcpServer;
+    QTcpSocket *TcpSocket;
 
 public:
     Aircondition();
+
+    void newConnect();
 
     void init(); //initialize the state of aircondition
 
@@ -64,8 +68,14 @@ public:
 
     void RoomPowerOff(int RoomNo); //收到房间关机请求
 
+    void TempChange(int RoomNo);
+
 private:
-    void SendMessage(int RoomNo, char Type, bool IsConfirmed); //send I or H or P
+    void SendMessage(int RoomNo, char Type); // send 'A'
+
+    void SendMessage(int RoomNo, char Type, bool IsConfirmed); //send I or H
+
+    void SendMessage(int RoomNo, char Type, bool mode, double value1, double value2, double Temp, int Level); //send P
 
     void SendMessage(int RoomNo, char Type, double value); //send C or O
 
@@ -81,6 +91,8 @@ private slots:
     void PowerOn(void);
 
     void PowerOff(void);
+
+    void RealTimeControl();
 };
 
 #endif // AIRCONDITION_H
