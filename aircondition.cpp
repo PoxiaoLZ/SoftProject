@@ -3,6 +3,9 @@
 Aircondition::Aircondition()
 {
 	init();
+    Timer = new QTimer;
+    Timer->start(TimeRadio);
+    connect(Timer, SIGNAL(timeout()), this, RealTimeControl());
 }
 
 void Aircondition::init()
@@ -228,10 +231,12 @@ void Aircondition::TempChange(int RoomNo)
     else if(Mode && rooms[RoomNo].GetCurrentTemperature() <= rooms[RoomNo].GetTargetTemperature()){
         //制冷并且当前温度低于目标温度
         rooms[RoomNo].SetCurrentState(false);//空调挂起
+        SendMessage(RoomNo, 'H', true);
     }
     else if(!Mode && rooms[RoomNo].GetCurrentTemperature() >= rooms[RoomNo].GetTargetTemperature()){
         //制热并且当前温度高于目标温度
         rooms[RoomNo].SetCurrentState(false);//空调挂起
+        SendMessage(RoomNo, 'H', true);
     }
     else if(Mode){//制冷
         double delta2 = abs(rooms[RoomNo].GetCurrentTemperature() - rooms[RoomNo].GetTargetTemperature());
@@ -241,6 +246,7 @@ void Aircondition::TempChange(int RoomNo)
             else{
                 rooms[RoomNo].SetCurrentTemperature(rooms[RoomNo].GetTargetTemperature());
                 rooms[RoomNo].SetCurrentState(false);//挂起
+                SendMessage(RoomNo, 'A');
             }
         }
         else if(rooms[RoomNo].GetWindRate() == 2){
@@ -249,6 +255,7 @@ void Aircondition::TempChange(int RoomNo)
             else{
                 rooms[RoomNo].SetCurrentTemperature(rooms[RoomNo].GetTargetTemperature());
                 rooms[RoomNo].SetCurrentState(false);//挂起
+                SendMessage(RoomNo, 'A');
             }
         }
         else if(rooms[RoomNo].GetWindRate() == 3){
@@ -257,6 +264,7 @@ void Aircondition::TempChange(int RoomNo)
             else{
                 rooms[RoomNo].SetCurrentTemperature(rooms[RoomNo].GetTargetTemperature());
                 rooms[RoomNo].SetCurrentState(false);//挂起
+                SendMessage(RoomNo, 'A');
             }
         }
     }
@@ -268,6 +276,7 @@ void Aircondition::TempChange(int RoomNo)
             else{
                 rooms[RoomNo].SetCurrentTemperature(rooms[RoomNo].GetTargetTemperature());
                 rooms[RoomNo].SetCurrentState(false);//挂起
+                SendMessage(RoomNo, 'A');
             }
         }
         else if(rooms[RoomNo].GetWindRate() == 2){
@@ -276,6 +285,7 @@ void Aircondition::TempChange(int RoomNo)
             else{
                 rooms[RoomNo].SetCurrentTemperature(rooms[RoomNo].GetTargetTemperature());
                 rooms[RoomNo].SetCurrentState(false);//挂起
+                SendMessage(RoomNo, 'A');
             }
         }
         else if(rooms[RoomNo].GetWindRate() == 3){
@@ -284,6 +294,7 @@ void Aircondition::TempChange(int RoomNo)
             else{
                 rooms[RoomNo].SetCurrentTemperature(rooms[RoomNo].GetTargetTemperature());
                 rooms[RoomNo].SetCurrentState(false);//挂起
+                SendMessage(RoomNo, 'A');
             }
         }
     }
@@ -295,6 +306,7 @@ void Aircondition::RealTimeControl()
         if(rooms[i].GetIsEmpty())
             continue;
         TempChange(i);
+        SendMessage(rooms[i].GetRoomNo(), 'C', rooms[i].GetCurrentTemperature());
     }
 
     /*
